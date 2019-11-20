@@ -3,11 +3,8 @@ package android.the.coding.archer.recipeapp.model;
 public class RecipeStep {
 
     private long id;
-
     private long recipeId;
-
     private int stepNumber;
-
     private String instruction;
 
     public RecipeStep(int stepNumber, String instruction) {
