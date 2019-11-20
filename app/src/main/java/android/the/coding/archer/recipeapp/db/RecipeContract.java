@@ -11,6 +11,15 @@ final class RecipeContract {
     private String description;
     private int imageResourceId;
 
+    static final String CREATE_RECIPE_ENTRY_TABLE =
+            "CREATE TABLE " + RecipeEntry.TABLE_NAME +
+                    " ( " +
+                    RecipeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    RecipeEntry.COLUMN_NAME + " TEXT NOT NULL, " +
+                    RecipeEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
+                    RecipeEntry.COLUMN_IMAGE_RESOURCE_ID + " INTEGER NOT NULL, " +
+                    "UNIQUE ( " + RecipeEntry._ID + ") ON CONFLICT REPLACE )";
+
     public static class RecipeEntry implements BaseColumns {
         public static final String TABLE_NAME = "recipe";
         public static final String COLUMN_NAME = "name";
