@@ -15,11 +15,15 @@ public class DatabaseSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(RecipeContract.CREATE_RECIPE_ENTRY_TABLE);
+        db.execSQL(RecipeContract.CREATE_RECIPE_STEP_ENTRY_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + RecipeContract.RecipeStepEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + RecipeContract.RecipeEntry.TABLE_NAME);
 
+        onCreate(db);
     }
 }
