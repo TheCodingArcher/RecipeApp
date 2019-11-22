@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.the.coding.archer.recipeapp.R;
 import android.the.coding.archer.recipeapp.db.RecipeDataSource;
+import android.the.coding.archer.recipeapp.db.RecipesDataProvider;
+import android.the.coding.archer.recipeapp.model.Recipe;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -36,6 +38,10 @@ public class RecipeActivity extends AppCompatActivity {
         super.onResume();
 
         dataSource.open();
+
+        for (Recipe recipe : RecipesDataProvider.recipesList) {
+            dataSource.createRecipe(recipe);
+        }
     }
 
     @Override
