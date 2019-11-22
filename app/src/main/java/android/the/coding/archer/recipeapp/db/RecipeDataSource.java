@@ -1,7 +1,9 @@
 package android.the.coding.archer.recipeapp.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.the.coding.archer.recipeapp.model.Recipe;
 import android.util.Log;
 
 public class RecipeDataSource {
@@ -25,5 +27,16 @@ public class RecipeDataSource {
         dbHelper.close();
 
         Log.d(TAG, "Database is Closed.");
+    }
+
+    public void createRecipe(Recipe recipe) {
+        ContentValues values = new ContentValues();
+        values.put(RecipeContract.RecipeEntry.COLUMN_NAME, recipe.getName());
+        values.put(RecipeContract.RecipeEntry.COLUMN_DESCRIPTION, recipe.getDescription());
+        values.put(RecipeContract.RecipeEntry.COLUMN_IMAGE_RESOURCE_ID, recipe.getImageResourceId());
+
+        long rowId = database.insert(RecipeContract.RecipeEntry.TABLE_NAME, null, values);
+
+        Log.d(TAG, "createRecipe with ID: " + rowId);
     }
 }
