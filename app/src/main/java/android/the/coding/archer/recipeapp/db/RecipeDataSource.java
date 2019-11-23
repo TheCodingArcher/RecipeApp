@@ -100,4 +100,17 @@ public class RecipeDataSource {
         int count = database.update(RecipeContract.RecipeEntry.TABLE_NAME, values, selection, selectionArgs);
         Log.d(TAG, "Number of records updated: " + count);
     }
+
+    public void deleteRecipe(Recipe recipe) {
+        String selection = RecipeContract.RecipeEntry._ID + " =?";
+        String[] selectionArgs = { String.valueOf(recipe.getId()) };
+
+        int count = database.delete(RecipeContract.RecipeEntry.TABLE_NAME, selection, selectionArgs);
+        Log.d(TAG, "Number of records deleted: " + count);
+    }
+
+    public void deleteAllRecipes() {
+        int count = database.delete(RecipeContract.RecipeEntry.TABLE_NAME, null, null);
+        Log.d(TAG, "Number of records deleted: " + count);
+    }
 }
