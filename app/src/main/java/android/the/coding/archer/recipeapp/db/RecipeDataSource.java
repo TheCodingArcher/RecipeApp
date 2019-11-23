@@ -87,4 +87,17 @@ public class RecipeDataSource {
 
         return recipes;
     }
+
+    public void updateRecipe(Recipe recipe) {
+        ContentValues values = new ContentValues();
+        values.put(RecipeContract.RecipeEntry.COLUMN_NAME, recipe.getName());
+        values.put(RecipeContract.RecipeEntry.COLUMN_DESCRIPTION, recipe.getDescription());
+        values.put(RecipeContract.RecipeEntry.COLUMN_IMAGE_RESOURCE_ID, recipe.getImageResourceId());
+
+        String selection = RecipeContract.RecipeEntry._ID + " =?";
+        String[] selectionArgs = { String.valueOf(recipe.getId()) };
+
+        int count = database.update(RecipeContract.RecipeEntry.TABLE_NAME, values, selection, selectionArgs);
+        Log.d(TAG, "Number of records updated: " + count);
+    }
 }

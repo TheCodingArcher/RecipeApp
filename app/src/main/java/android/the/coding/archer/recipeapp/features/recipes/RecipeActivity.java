@@ -9,6 +9,9 @@ import android.the.coding.archer.recipeapp.R;
 import android.the.coding.archer.recipeapp.db.RecipeDataSource;
 import android.the.coding.archer.recipeapp.db.RecipesDataProvider;
 import android.the.coding.archer.recipeapp.model.Recipe;
+import android.util.Log;
+
+import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -43,7 +46,24 @@ public class RecipeActivity extends AppCompatActivity {
             dataSource.createRecipe(recipe);
         }
 
-        adapter.setRecipes(dataSource.getAllRecipes());
+        List<Recipe> allRecipes = getRecipes();
+        Recipe updatedRecipe = allRecipes.get(0);
+        updatedRecipe.setName("Yellow Cake!");
+
+        dataSource.updateRecipe(updatedRecipe);
+
+        getRecipes();
+    }
+
+    private List<Recipe> getRecipes() {
+        List<Recipe> allRecipes = dataSource.getAllRecipes();
+        for (Recipe recipe : allRecipes) {
+            Log.i(TAG, "the recipe: " + recipe);
+        }
+
+        adapter.setRecipes(allRecipes);
+
+        return allRecipes;
     }
 
     @Override
