@@ -35,7 +35,11 @@ public class RecipeDataSource {
     }
 
     public List<Recipe> getAllRecipes () {
-        List<Recipe> recipes = new ArrayList<>();
+        List<Recipe> recipes = recipeDao.getAllRecipes();
+        for (Recipe recipe : recipes) {
+            List<RecipeStep> steps = recipeStepDao.getAllRecipeStepsById(recipe.getId());
+            recipe.setSteps(steps);
+        }
 
         return recipes;
     }

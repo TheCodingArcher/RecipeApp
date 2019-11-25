@@ -48,18 +48,15 @@ public class RecipeActivity extends AppCompatActivity {
                     dataSource.createRecipe(recipe);
                 }
 
-                return null;
+                return dataSource.getAllRecipes();
             }
 
             @Override
             protected void onPostExecute(List<Recipe> recipes) {
-
+                adapter.setRecipes(recipes);
+                adapter.notifyDataSetChanged();
             }
         }.execute();
-
-        /*List<Recipe> recipes = dataSource.getAllRecipes();
-        adapter.setRecipes(recipes);
-        adapter.notifyDataSetChanged();*/
     }
 
     @Override
