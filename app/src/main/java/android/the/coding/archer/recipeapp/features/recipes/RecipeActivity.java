@@ -1,11 +1,17 @@
 package android.the.coding.archer.recipeapp.features.recipes;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.the.coding.archer.recipeapp.R;
+import android.the.coding.archer.recipeapp.db.RecipeDataSource;
+import android.the.coding.archer.recipeapp.db.RecipesDataProvider;
+import android.the.coding.archer.recipeapp.model.Recipe;
+
+import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -13,6 +19,7 @@ public class RecipeActivity extends AppCompatActivity {
 
     private RecyclerView recipesRecyclerView;
     private RecipesAdapter adapter;
+    private RecipeDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +31,35 @@ public class RecipeActivity extends AppCompatActivity {
 
         recipesRecyclerView = findViewById(R.id.recipes_recycler_view);
 
+        dataSource = new RecipeDataSource(this);
+
         setupRecyclerView();
     }
 
     @Override
     protected void onResume () {
         super.onResume();
+
+        new AsyncTask<Void, Void, List<Recipe>>() {
+
+            @Override
+            protected List<Recipe> doInBackground(Void... voids) {
+                for (Recipe recipe : RecipesDataProvider.recipesList) {
+                    dataSource.createRecipe(recipe);
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(List<Recipe> recipes) {
+
+            }
+        }.execute();
+
+        /*List<Recipe> recipes = dataSource.getAllRecipes();
+        adapter.setRecipes(recipes);
+        adapter.notifyDataSetChanged();*/
     }
 
     @Override
