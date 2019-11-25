@@ -5,8 +5,9 @@ import android.the.coding.archer.recipeapp.model.Recipe;
 import android.the.coding.archer.recipeapp.model.RecipeStep;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Flowable;
 
 public class RecipeDataSource {
 
@@ -34,13 +35,7 @@ public class RecipeDataSource {
         Log.d(TAG, "createRecipe: ID: " + rowId);
     }
 
-    public List<Recipe> getAllRecipes () {
-        List<Recipe> recipes = recipeDao.getAllRecipes();
-        for (Recipe recipe : recipes) {
-            List<RecipeStep> steps = recipeStepDao.getAllRecipeStepsById(recipe.getId());
-            recipe.setSteps(steps);
-        }
-
-        return recipes;
+    public Flowable<List<Recipe>> getAllRecipes () {
+        return recipeDao.getAllRecipes();
     }
 }

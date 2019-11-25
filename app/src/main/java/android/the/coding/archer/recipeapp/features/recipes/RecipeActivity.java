@@ -1,6 +1,5 @@
 package android.the.coding.archer.recipeapp.features.recipes;
 
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +11,13 @@ import android.the.coding.archer.recipeapp.db.RecipesDataProvider;
 import android.the.coding.archer.recipeapp.model.Recipe;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -20,6 +26,7 @@ public class RecipeActivity extends AppCompatActivity {
     private RecyclerView recipesRecyclerView;
     private RecipesAdapter adapter;
     private RecipeDataSource dataSource;
+    private Disposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,28 +47,36 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onResume () {
         super.onResume();
 
-        new AsyncTask<Void, Void, List<Recipe>>() {
+        disposable = dataSource.getAllRecipes()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Recipe>>() {
+                    @Override
+                    public void accept(List<Recipe> recipes) throws Exception {
+                        adapter.setRecipes(recipes);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
 
+        Completable.fromCallable(new Callable<Void>() {
             @Override
-            protected List<Recipe> doInBackground(Void... voids) {
+            public Void call() throws Exception {
                 for (Recipe recipe : RecipesDataProvider.recipesList) {
                     dataSource.createRecipe(recipe);
                 }
-
-                return dataSource.getAllRecipes();
+                return null;
             }
-
-            @Override
-            protected void onPostExecute(List<Recipe> recipes) {
-                adapter.setRecipes(recipes);
-                adapter.notifyDataSetChanged();
-            }
-        }.execute();
+        }).subscribeOn(Schedulers.io()).subscribe();
     }
 
     @Override
     protected void onPause () {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        disposable.dispose();
+        super.onDestroy();
     }
 
     private void setupRecyclerView () {

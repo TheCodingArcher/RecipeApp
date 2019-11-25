@@ -8,6 +8,8 @@ import android.the.coding.archer.recipeapp.model.Recipe;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 @Dao
 public interface RecipeDao {
 
@@ -15,5 +17,5 @@ public interface RecipeDao {
     long createRecipe(Recipe recipe);
 
     @Query("SELECT * FROM recipe")
-    List<Recipe> getAllRecipes();
+    Flowable<List<Recipe>> getAllRecipes();
 }
