@@ -1,13 +1,25 @@
 package android.the.coding.archer.recipeapp.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity
 public class Recipe {
 
+    @PrimaryKey(autoGenerate = true)
     private long id;
+
     private String name;
     private String description;
+
+    @ColumnInfo(name = "image_resource_id")
     private int imageResourceId;
+
+    @Ignore
     private List<RecipeStep> steps;
 
     public Recipe(String name, String description, int imageResourceId) {
