@@ -22,6 +22,9 @@ public class Recipe {
     @Ignore
     private List<RecipeStep> steps;
 
+    @ColumnInfo(name = "number_of_stars")
+    private Integer numberOfStars;
+
     public Recipe(String name, String description, int imageResourceId) {
         this.name = name;
         this.description = description;
@@ -66,6 +69,14 @@ public class Recipe {
 
     public void setSteps(List<RecipeStep> steps) {
         this.steps = steps;
+    }
+
+    public Integer getNumberOfStars() {
+        return numberOfStars;
+    }
+
+    public void setNumberOfStars(Integer numberOfStars) {
+        this.numberOfStars = numberOfStars;
     }
 
     @Override

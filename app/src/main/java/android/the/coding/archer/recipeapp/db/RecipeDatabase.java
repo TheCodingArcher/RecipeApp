@@ -1,17 +1,28 @@
 package android.the.coding.archer.recipeapp.db;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.the.coding.archer.recipeapp.model.Recipe;
 import android.the.coding.archer.recipeapp.model.RecipeStep;
 
-@Database(entities = { Recipe.class, RecipeStep.class }, version = 1)
+@Database(entities = { Recipe.class, RecipeStep.class }, version = 2)
 public abstract class RecipeDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "recipes";
     private static RecipeDatabase INSTANCE = null;
+
+    public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE recipe"
+                        + " ADD COLUMN number_of_stars INTEGER");
+        }
+    };
 
     public static RecipeDatabase getInstance(Context context) {
         if (INSTANCE == null) {
@@ -19,6 +30,7 @@ public abstract class RecipeDatabase extends RoomDatabase {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                                 RecipeDatabase.class,
                                                 DATABASE_NAME)
+                            .addMigrations(MIGRATION_1_2)
                             .build();
             }
         }
