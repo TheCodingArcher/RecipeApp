@@ -2,12 +2,16 @@ package android.the.coding.archer.recipeapp.model;
 
 import java.util.List;
 
+import nl.qbusict.cupboard.annotation.Ignore;
+
 public class Recipe {
 
-    private long id;
+    private Long _id;
     private String name;
     private String description;
     private int imageResourceId;
+
+    @Ignore
     private List<RecipeStep> steps;
 
     public Recipe(String name, String description, int imageResourceId) {
@@ -17,11 +21,11 @@ public class Recipe {
     }
 
     public long getId() {
-        return id;
+        return _id;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getName() {
@@ -59,7 +63,7 @@ public class Recipe {
     @Override
     public String toString() {
         return "Recipe{" +
-                "id=" + id +
+                "_id=" + _id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", imageResourceId=" + imageResourceId +
