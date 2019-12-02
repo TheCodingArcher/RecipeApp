@@ -2,8 +2,6 @@ package android.the.coding.archer.recipeapp.model;
 
 import java.util.List;
 
-import nl.qbusict.cupboard.annotation.Ignore;
-
 public class Recipe {
 
     private Long _id;
@@ -11,7 +9,6 @@ public class Recipe {
     private String description;
     private int imageResourceId;
 
-    @Ignore
     private List<RecipeStep> steps;
 
     public Recipe(String name, String description, int imageResourceId) {

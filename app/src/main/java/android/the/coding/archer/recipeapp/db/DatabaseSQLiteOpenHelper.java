@@ -5,6 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.the.coding.archer.recipeapp.model.Recipe;
 
+import com.google.gson.Gson;
+
+import nl.littlerobots.cupboard.tools.gson.GsonListFieldConverterFactory;
 import nl.qbusict.cupboard.CupboardBuilder;
 import nl.qbusict.cupboard.CupboardFactory;
 
@@ -20,7 +23,9 @@ public class DatabaseSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     static {
-        CupboardFactory.setCupboard(new CupboardBuilder().useAnnotations().build());
+        CupboardFactory.setCupboard(new CupboardBuilder()
+                .registerFieldConverterFactory(new GsonListFieldConverterFactory(new Gson()))
+                .build());
         cupboard().register(Recipe.class);
     }
 

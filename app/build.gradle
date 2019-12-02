@@ -36,4 +36,8 @@ dependencies {
 
     // CUPBOARD
     implementation 'nl.qbusict:cupboard:2.2.0'
+    implementation 'nl.littlerobots.cupboard-tools:gson:0.3.1'
+
+    // DB INSPECTOR
+    debugImplementation 'im.dino:dbinspector:3.4.1@aar'
 }
