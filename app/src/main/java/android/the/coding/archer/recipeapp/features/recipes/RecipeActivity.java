@@ -6,6 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.the.coding.archer.recipeapp.R;
+import android.the.coding.archer.recipeapp.db.RecipeDataSource;
+import android.the.coding.archer.recipeapp.db.RecipesDataProvider;
+import android.the.coding.archer.recipeapp.model.Recipe;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -13,6 +16,7 @@ public class RecipeActivity extends AppCompatActivity {
 
     private RecyclerView recipesRecyclerView;
     private RecipesAdapter adapter;
+    private RecipeDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +28,25 @@ public class RecipeActivity extends AppCompatActivity {
 
         recipesRecyclerView = findViewById(R.id.recipes_recycler_view);
 
+        dataSource = new RecipeDataSource(this);
+
         setupRecyclerView();
     }
 
     @Override
     protected void onResume () {
         super.onResume();
+        dataSource.open();
+
+        for (Recipe recipe : RecipesDataProvider.recipesList) {
+            dataSource.createRecipe(recipe);
+        }
     }
 
     @Override
     protected void onPause () {
         super.onPause();
+        dataSource.close();
     }
 
     private void setupRecyclerView () {
