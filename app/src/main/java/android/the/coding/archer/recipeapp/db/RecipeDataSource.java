@@ -44,4 +44,8 @@ public class RecipeDataSource {
     public void updateRecipe(Recipe recipe) {
         cupboard().withDatabase(database).put(recipe);
     }
+
+    public void deleteRecipe(Recipe recipe) {
+        cupboard().withDatabase(database).delete(recipe);
+    }
 }
