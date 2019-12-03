@@ -17,6 +17,8 @@ public class Recipe {
         this.imageResourceId = imageResourceId;
     }
 
+    public Recipe() {}
+
     public long getId() {
         return _id;
     }

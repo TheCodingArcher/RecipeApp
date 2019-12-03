@@ -36,6 +36,8 @@ public class RecipeDataSource {
     }
 
     public List<Recipe> getAllRecipes() {
-        return null;
+        return cupboard().withDatabase(database)
+                .query(Recipe.class)
+                .list();
     }
 }
