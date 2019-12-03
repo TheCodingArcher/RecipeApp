@@ -40,4 +40,8 @@ public class RecipeDataSource {
                 .query(Recipe.class)
                 .list();
     }
+
+    public void updateRecipe(Recipe recipe) {
+        cupboard().withDatabase(database).put(recipe);
+    }
 }
