@@ -8,8 +8,8 @@ public class Recipe {
     private String name;
     private String description;
     private int imageResourceId;
-
     private List<RecipeStep> steps;
+    private Integer numberOfStars;
 
     public Recipe(String name, String description, int imageResourceId) {
         this.name = name;
@@ -57,6 +57,14 @@ public class Recipe {
 
     public void setSteps(List<RecipeStep> steps) {
         this.steps = steps;
+    }
+
+    public Integer getNumberOfStars() {
+        return numberOfStars;
+    }
+
+    public void setNumberOfStars(Integer numberOfStars) {
+        this.numberOfStars = numberOfStars;
     }
 
     @Override

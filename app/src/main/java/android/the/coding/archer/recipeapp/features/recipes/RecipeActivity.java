@@ -45,12 +45,12 @@ public class RecipeActivity extends AppCompatActivity {
             dataSource.createRecipe(recipe);
         }
 
-        List<Recipe> allRecipes = getRecipes();
+//        List<Recipe> allRecipes = getRecipes();
 //        Recipe updatedRecipe = allRecipes.get(0);
 //        updatedRecipe.setDescription("Lovely Yellow Cake.");
 //        dataSource.updateRecipe(updatedRecipe);
 //        dataSource.deleteRecipe(updatedRecipe);
-        dataSource.deleteAllRecipes();
+//        dataSource.deleteAllRecipes();
 
         getRecipes();
     }
