@@ -2,6 +2,7 @@ package android.the.coding.archer.recipeapp.model;
 
 import java.util.UUID;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -13,6 +14,8 @@ public class Recipe extends RealmObject {
     private String name;
     private String description;
     private int imageResourceId;
+
+    private RealmList<RecipeStep> steps;
 
     public Recipe() {}
 
@@ -54,10 +57,18 @@ public class Recipe extends RealmObject {
         this.imageResourceId = imageResourceId;
     }
 
+    public RealmList<RecipeStep> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(RealmList<RecipeStep> steps) {
+        this.steps = steps;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", imageResourceId=" + imageResourceId +
