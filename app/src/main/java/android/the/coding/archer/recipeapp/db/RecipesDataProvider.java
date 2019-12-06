@@ -5,7 +5,6 @@ import android.the.coding.archer.recipeapp.model.Recipe;
 import android.the.coding.archer.recipeapp.model.RecipeStep;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RecipesDataProvider {
@@ -27,9 +26,6 @@ public class RecipesDataProvider {
     }
 
     private static void addRecipe(Recipe recipe, RecipeStep... steps) {
-        if (steps.length > 0) {
-            recipe.setSteps(Arrays.asList(steps));
-        }
         recipesList.add( recipe );
     }
 }
