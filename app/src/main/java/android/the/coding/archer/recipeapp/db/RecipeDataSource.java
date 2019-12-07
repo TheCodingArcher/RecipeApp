@@ -1,6 +1,7 @@
 package android.the.coding.archer.recipeapp.db;
 
 import android.the.coding.archer.recipeapp.model.Recipe;
+import android.the.coding.archer.recipeapp.model.RecipeFields;
 import android.util.Log;
 
 import java.util.List;
@@ -35,6 +36,18 @@ public class RecipeDataSource {
     }
 
     public List<Recipe> getAllRecipes() {
-        return realm.where(Recipe.class).findAll();
+//        return realm.where(Recipe.class).findAll();
+
+        // Querying all Recipes that has Steps
+        /*return realm.where(Recipe.class)
+                .isNotEmpty(RecipeFields.STEPS.$)
+                .findAll();*/
+
+        // Querying all Recipes that has Steps and has "ie" in its name
+        return realm.where(Recipe.class)
+                .isNotEmpty(RecipeFields.STEPS.$)
+                .or()
+                .contains(RecipeFields.NAME, "ie")
+                .findAll();
     }
 }
