@@ -50,11 +50,20 @@ public class RecipeActivity extends AppCompatActivity {
         for (Recipe recipe : allRecipes) {
             Log.i(TAG, "recipe: " + recipe);
         }
+
+        // Displaying Recipes List in our RecyclerView
+        adapter.setRecipes(allRecipes);
     }
 
     @Override
     protected void onPause () {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        dataSource.close();
+        super.onDestroy();
     }
 
     private void setupRecyclerView () {
