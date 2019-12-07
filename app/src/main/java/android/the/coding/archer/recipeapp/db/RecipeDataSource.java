@@ -3,6 +3,8 @@ package android.the.coding.archer.recipeapp.db;
 import android.the.coding.archer.recipeapp.model.Recipe;
 import android.util.Log;
 
+import java.util.List;
+
 import io.realm.Realm;
 
 public class RecipeDataSource {
@@ -30,5 +32,9 @@ public class RecipeDataSource {
         });
 
         Log.d(TAG, "createRecipe: ID: " + recipe.getId());
+    }
+
+    public List<Recipe> getAllRecipes() {
+        return realm.where(Recipe.class).findAll();
     }
 }
