@@ -45,23 +45,25 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onResume () {
         super.onResume();
 
-        dataSource.createRecipe(RecipesDataProvider.recipesList.get(0));
+        /*dataSource.createRecipe(RecipesDataProvider.recipesList.get(0));
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 dataSource.createRecipe(RecipesDataProvider.recipesList.get(1));
             }
-        },3_000);
+        },3_000);*/
 
-        /*for (Recipe recipe : RecipesDataProvider.recipesList) {
+        for (Recipe recipe : RecipesDataProvider.recipesList) {
             dataSource.createRecipe(recipe);
-        }*/
+        }
 
         List<Recipe> allRecipes = dataSource.getAllRecipes();
         for (Recipe recipe : allRecipes) {
             Log.i(TAG, "recipe: " + recipe);
         }
+
+        dataSource.modifyDescription();
     }
 
     @Override

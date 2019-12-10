@@ -50,4 +50,15 @@ public class RecipeDataSource {
                 .contains(RecipeFields.NAME, "ie")
                 .findAll();*/
     }
+
+    public void modifyDescription() {
+        final Recipe recipe = realm.where(Recipe.class).findFirst();
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                recipe.setDescription("Wonderful Yellow Cake");
+            }
+        });
+    }
 }
