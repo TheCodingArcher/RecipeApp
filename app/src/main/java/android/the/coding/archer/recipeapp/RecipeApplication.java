@@ -7,6 +7,8 @@ import io.realm.RealmConfiguration;
 
 public class RecipeApplication extends Application {
 
+    private static final int SCHEMA_VERSION = 2;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -15,11 +17,10 @@ public class RecipeApplication extends Application {
 
         RealmConfiguration configuration =
                 new RealmConfiguration.Builder()
+                        .schemaVersion(SCHEMA_VERSION)
+                        .migration(new Migration())
                         .name("recipe.realm")
-                        .deleteRealmIfMigrationNeeded()
                         .build();
-
-        Realm.deleteRealm(configuration);
 
         Realm.setDefaultConfiguration(configuration);
     }

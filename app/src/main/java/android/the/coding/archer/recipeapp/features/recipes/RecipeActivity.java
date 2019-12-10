@@ -76,7 +76,7 @@ public class RecipeActivity extends AppCompatActivity {
         /*dataSource.deleteRecipe(allRecipes.get(0));*/
 
         // Deleting multiple Realm Objects
-        dataSource.deleteAllRecipes();
+        /*dataSource.deleteAllRecipes();*/
     }
 
     @Override

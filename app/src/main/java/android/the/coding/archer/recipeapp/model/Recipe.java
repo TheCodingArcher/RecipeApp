@@ -17,6 +17,8 @@ public class Recipe extends RealmObject {
 
     private RealmList<RecipeStep> steps;
 
+    private Integer numberOfStars;
+
     public Recipe() {}
 
     public Recipe(String name, String description, int imageResourceId) {
