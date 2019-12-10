@@ -64,6 +64,11 @@ public class RecipeActivity extends AppCompatActivity {
         }
 
         dataSource.modifyDescription();
+
+        Recipe unmanagedRecipe = new Recipe("Red Velvet", "Yummy!", R.drawable.cake_fluffy);
+        unmanagedRecipe.setId(allRecipes.get(0).getId());
+
+        dataSource.createRecipe(unmanagedRecipe);
     }
 
     @Override
