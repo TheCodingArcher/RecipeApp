@@ -37,4 +37,5 @@ dependencies {
 
     // LIBRARY
     annotationProcessor 'dk.ilios:realmfieldnameshelper:1.1.1'
+    implementation 'io.realm:android-adapters:2.0.0'
 }

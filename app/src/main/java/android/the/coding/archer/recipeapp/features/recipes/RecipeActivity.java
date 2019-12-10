@@ -1,5 +1,6 @@
 package android.the.coding.archer.recipeapp.features.recipes;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,8 @@ import android.the.coding.archer.recipeapp.model.Recipe;
 import android.util.Log;
 
 import java.util.List;
+
+import io.realm.OrderedRealmCollection;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -42,17 +45,23 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onResume () {
         super.onResume();
 
-        for (Recipe recipe : RecipesDataProvider.recipesList) {
+        dataSource.createRecipe(RecipesDataProvider.recipesList.get(0));
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dataSource.createRecipe(RecipesDataProvider.recipesList.get(1));
+            }
+        },3_000);
+
+        /*for (Recipe recipe : RecipesDataProvider.recipesList) {
             dataSource.createRecipe(recipe);
-        }
+        }*/
 
         List<Recipe> allRecipes = dataSource.getAllRecipes();
         for (Recipe recipe : allRecipes) {
             Log.i(TAG, "recipe: " + recipe);
         }
-
-        // Displaying Recipes List in our RecyclerView
-        adapter.setRecipes(allRecipes);
     }
 
     @Override
@@ -73,7 +82,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         recipesRecyclerView.setHasFixedSize(true);
 
-        adapter = new RecipesAdapter(this);
+        adapter = new RecipesAdapter((OrderedRealmCollection<Recipe>) dataSource.getAllRecipes(), true);
         recipesRecyclerView.setAdapter(adapter);
     }
 }

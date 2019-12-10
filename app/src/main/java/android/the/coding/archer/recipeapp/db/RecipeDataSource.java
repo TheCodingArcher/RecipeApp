@@ -28,7 +28,7 @@ public class RecipeDataSource {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.insert(recipe);
+                realm.insertOrUpdate(recipe);
             }
         });
 
@@ -36,7 +36,7 @@ public class RecipeDataSource {
     }
 
     public List<Recipe> getAllRecipes() {
-//        return realm.where(Recipe.class).findAll();
+        return realm.where(Recipe.class).findAll();
 
         // Querying all Recipes that has Steps
         /*return realm.where(Recipe.class)
@@ -44,10 +44,10 @@ public class RecipeDataSource {
                 .findAll();*/
 
         // Querying all Recipes that has Steps and has "ie" in its name
-        return realm.where(Recipe.class)
+        /*return realm.where(Recipe.class)
                 .isNotEmpty(RecipeFields.STEPS.$)
                 .or()
                 .contains(RecipeFields.NAME, "ie")
-                .findAll();
+                .findAll();*/
     }
 }

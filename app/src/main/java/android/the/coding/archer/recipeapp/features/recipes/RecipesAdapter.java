@@ -1,7 +1,7 @@
 package android.the.coding.archer.recipeapp.features.recipes;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.the.coding.archer.recipeapp.R;
 import android.the.coding.archer.recipeapp.model.Recipe;
@@ -13,20 +13,13 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.Collections;
-import java.util.List;
+import io.realm.OrderedRealmCollection;
+import io.realm.RealmRecyclerViewAdapter;
 
-public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
+public class RecipesAdapter extends RealmRecyclerViewAdapter<Recipe, RecipesAdapter.ViewHolder> {
 
-    private List<Recipe> recipes = Collections.emptyList();
-    private Context context;
-
-    public RecipesAdapter(Context context) {
-        this.context = context;
-    }
-
-    void setRecipes (List<Recipe> recipes) {
-        this.recipes = recipes;
+    public RecipesAdapter(@Nullable OrderedRealmCollection<Recipe> data, boolean autoUpdate) {
+        super(data, autoUpdate);
     }
 
     @NonNull
@@ -39,21 +32,16 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull RecipesAdapter.ViewHolder viewHolder, int position) {
-        Recipe recipe = recipes.get( position );
+        Recipe recipe = getData().get( position );
 
         viewHolder.recipeName.setText(recipe.getName());
         viewHolder.recipeDescription.setText(recipe.getDescription());
 
-        Picasso.with(context)
+        Picasso.with(viewHolder.recipeImage.getContext())
                 .load(recipe.getImageResourceId())
                 .resize(340, 200)
                 .centerCrop()
                 .into(viewHolder.recipeImage);
-    }
-
-    @Override
-    public int getItemCount() {
-        return this.recipes.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
