@@ -7,6 +7,7 @@ import android.util.Log;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class RecipeDataSource {
 
@@ -58,6 +59,28 @@ public class RecipeDataSource {
             @Override
             public void execute(Realm realm) {
                 recipe.setDescription("Wonderful Yellow Cake");
+            }
+        });
+    }
+
+    public void deleteRecipe(final Recipe recipe) {
+        final Recipe recipeManaged = realm.where(Recipe.class).equalTo(RecipeFields.ID, recipe.getId()).findFirst();
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                recipeManaged.deleteFromRealm();
+            }
+        });
+    }
+
+    public void deleteAllRecipes() {
+        final RealmResults<Recipe> recipes = realm.where(Recipe.class).findAll();
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                recipes.deleteAllFromRealm();
             }
         });
     }

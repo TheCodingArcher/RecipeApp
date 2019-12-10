@@ -45,6 +45,7 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onResume () {
         super.onResume();
 
+        // Update Managed Realm Object
         /*dataSource.createRecipe(RecipesDataProvider.recipesList.get(0));
 
         new Handler().postDelayed(new Runnable() {
@@ -63,12 +64,19 @@ public class RecipeActivity extends AppCompatActivity {
             Log.i(TAG, "recipe: " + recipe);
         }
 
-        dataSource.modifyDescription();
+        // Update Unmanaged Realm Object
+        /*dataSource.modifyDescription();
 
         Recipe unmanagedRecipe = new Recipe("Red Velvet", "Yummy!", R.drawable.cake_fluffy);
         unmanagedRecipe.setId(allRecipes.get(0).getId());
 
-        dataSource.createRecipe(unmanagedRecipe);
+        dataSource.createRecipe(unmanagedRecipe);*/
+
+        // Deleting a Single Realm Object
+        /*dataSource.deleteRecipe(allRecipes.get(0));*/
+
+        // Deleting multiple Realm Objects
+        dataSource.deleteAllRecipes();
     }
 
     @Override
